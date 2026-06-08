@@ -1,0 +1,90 @@
+{
+  "overall": {
+    "answer_relevancy": 0.5870304409370366,
+    "context_precision": 0.5916666666254167,
+    "faithfulness": 0.8916666666666666,
+    "context_recall": 0.6166666666666666
+  },
+  "per_question": [
+    {
+      "question": "秀秀训练营的课程体系包含哪些方向？",
+      "ground_truth": "秀秀训练营的课程体系包含三个方向：Python基础（语法入门、数据结构与算法、面向对象编程）、机器学习（监督学习、无监督学习、深度学习入门）、RAG应用开发（文档处理、向量检索、Prompt工程）。",
+      "answer_relevancy": 1.0,
+      "context_precision": 1.0,
+      "faithfulness": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "question": "JavaScript事件循环中，宏任务和微任务的执行顺序是什么？",
+      "ground_truth": "事件循环每一轮（tick）的顺序是：从宏任务队列取出一个任务执行，当前任务执行完后立即清空所有微任务队列，然后可能进行渲染/绘制，接着进入下一个tick处理下一个宏任务。",
+      "answer_relevancy": 0.994,
+      "context_precision": 0.5833,
+      "faithfulness": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "question": "Node.js的事件循环和浏览器的事件循环有什么区别？",
+      "ground_truth": "Node.js的事件循环基于libuv，分为多个阶段：timers、pending callbacks、idle/prepare、poll、check、close callbacks。浏览器的事件循环则主要区分宏任务和微任务队列。Node.js有阶段化的处理流程，而浏览器更侧重于渲染与任务的协调。",
+      "answer_relevancy": 0.3817,
+      "context_precision": 1.0,
+      "faithfulness": 1.0,
+      "context_recall": 0.6667
+    },
+    {
+      "question": "什么是JavaScript的原型链？",
+      "ground_truth": "原型链是JavaScript中属性查找的机制。当访问obj.prop时，先查看obj自身是否有该自有属性，如果没有则沿着obj.__ Prototype__向上查找，直到Object.prototype.__proto__为null时停止。",
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "faithfulness": 1.0,
+      "context_recall": 0.0
+    },
+    {
+      "question": "new操作符的工作原理是什么？",
+      "ground_truth": "使用new F(arg)时：1.新建一个空对象obj；2.空对象的__Prototype__被设置为F.prototype；3.执行F，this指向obj；4.若F返回对象则结果为该对象，否则返回obj。",
+      "answer_relevancy": 1.0,
+      "context_precision": 1.0,
+      "faithfulness": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "question": "SSE是什么？它和WebSocket有什么区别？",
+      "ground_truth": "SSE（Server-Sent Events）是服务器向客户端单向推送数据的技术，基于HTTP协议。WebSocket是全双工双向通信。SSE更简单、基于HTTP，适合服务器单向推送场景；WebSocket适合需要双向实时通信的场景。",
+      "answer_relevancy": 0.6128,
+      "context_precision": 1.0,
+      "faithfulness": 1.0,
+      "context_recall": 1.0
+    },
+    {
+      "question": "JavaScript中的this绑定规则有哪些？",
+      "ground_truth": "this的绑定规则有四种：1.new绑定（优先级最高）；2.显式绑定（call/apply/bind）；3.隐式绑定（对象方法调用）；4.默认绑定（普通函数调用，非严格模式指向window，严格模式为undefined）。箭头函数没有自己的this，继承外层的this。",
+      "answer_relevancy": 0.9598,
+      "context_precision": 0.3333,
+      "faithfulness": 0.9167,
+      "context_recall": 0.5
+    },
+    {
+      "question": "==和===的区别是什么？",
+      "ground_truth": "==是宽松相等运算符，比较前会进行类型转换；===是严格相等运算符，不进行类型转换，值和类型都必须相同才返回true。最佳实践中应始终使用===。",
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "faithfulness": 0.0,
+      "context_recall": 0.0
+    },
+    {
+      "question": "JavaScript中什么是闭包？",
+      "ground_truth": "闭包是指一个函数能够访问其外部函数作用域中的变量，即使外部函数已经执行完毕。这是因为内部函数持有对外部函数词法环境的引用，形成作用域链。",
+      "answer_relevancy": 0.0,
+      "context_precision": 0.0,
+      "faithfulness": 1.0,
+      "context_recall": 0.0
+    },
+    {
+      "question": "EventSource客户端断线后会自动重连吗？",
+      "ground_truth": "会的。浏览器EventSource会自动重连，默认间隔约3秒。服务端可以通过retry字段设置客户端重连时间。",
+      "answer_relevancy": 0.922,
+      "context_precision": 1.0,
+      "faithfulness": 1.0,
+      "context_recall": 1.0
+    }
+  ]
+}

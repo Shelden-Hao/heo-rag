@@ -139,6 +139,63 @@ CHUNK_SIZE=512
 HF_ENDPOINT=https://hf-mirror.com
 ```
 
+## RAG 评估
+
+使用 [Ragas](https://docs.ragas.io/) 框架对 RAG 系统进行自动化质量评估。
+
+### 运行方式
+
+```bash
+# 1. 确保 .env 已配置 DEEPSEEK_API_KEY
+
+# 2. 运行评估（10 道测试题）
+python app/evaluation/evaluator.py
+```
+
+### 评估流程
+
+```
+dataset.json (10 道测试题，含 question + ground_truth)
+    │
+    ▼ 逐题执行
+    ├── hybrid_retrieve(question) → 检索 top-3 文档片段
+    ├── RAG_PROMPT + DeepSeek → 生成 answer
+    └── 收集 question, contexts, answer, ground_truth
+    │
+    ▼ ragas.evaluate()
+    ├── faithfulness     — 答案是否忠实于上下文
+    ├── answer_relevancy — 答案与问题的相关性
+    ├── context_precision — 检索结果是否精确命中
+    └── context_recall    — 检索结果是否覆盖足够信息
+    │
+    ▼ results.json（总体 + 逐题得分）
+```
+
+### 测试数据集
+
+`app/evaluation/dataset.json` 包含 10 道题，覆盖：
+- **训练营课程知识**（5 题）：课程体系、事件循环、SSE 等
+- **JS 基础概念**（5 题）：原型链、闭包、this 绑定等
+
+### 最新评估结果（2026-06-08）
+
+| 指标 | 分数 | 说明 |
+|------|------|------|
+| faithfulness | **0.892** | 答案基本忠实于上下文 |
+| context_recall | **0.617** | 检索覆盖不足（JS 题无对应语料）|
+| context_precision | **0.592** | 检索结果含噪音 |
+| answer_relevancy | **0.587** | 无相关上下文时答案与问题脱节 |
+
+**分析**：5 道训练营相关题平均 0.98，表现良好；3 道 JS 基础题因语料不含相关内容得到 0.0 分，属预期行为。
+
+### 关键技术细节
+
+| 项 | 说明 |
+|----|------|
+| LLM for evaluation | `llm_factory("deepseek-chat", provider="openai", client=DeepSeekClient)` |
+| Embeddings | `HuggingFaceEmbeddings(all-MiniLM-L6-v2)` 经 `LangchainEmbeddingsWrapper` 传入 |
+| Dataset 格式 | HuggingFace `datasets.Dataset`，列名：`question`、`contexts`、`answer`、`ground_truth` |
+
 ## 项目结构
 
 ```
